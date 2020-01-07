@@ -79,4 +79,7 @@
       parent = #{parent,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" resultType="com.zqj.blog.entity.Category">
+    select * from category
+  </select>
 </mapper>

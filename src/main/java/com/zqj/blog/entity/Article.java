@@ -1,5 +1,7 @@
 package com.zqj.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Article {
@@ -9,6 +11,7 @@ public class Article {
 
     private Integer categoryId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdWhen;
 
     private Date modifiedWhen;

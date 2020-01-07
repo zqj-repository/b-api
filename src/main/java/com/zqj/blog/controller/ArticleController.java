@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -24,8 +26,17 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public Article readArticle(@PathVariable("id") Integer id) {
-        return articleService.getArticle(id);
+    public ResponseEntity<?> readArticle(@PathVariable("id") Integer id) {
+        Article article = articleService.getArticle(id);
+        if (article == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(article);
+    }
+
+    @GetMapping("/all")
+    public List<Article> allArticles() {
+        return articleService.getArticles();
     }
 
 }

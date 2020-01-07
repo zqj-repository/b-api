@@ -3,6 +3,8 @@ package com.zqj.blog.dao;
 import com.zqj.blog.entity.Article;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +20,6 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+
+    List<Article> selectAll();
 }

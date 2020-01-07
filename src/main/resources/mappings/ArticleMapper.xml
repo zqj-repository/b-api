@@ -118,4 +118,7 @@
       modified_when = #{modifiedWhen,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from article
+  </select>
 </mapper>

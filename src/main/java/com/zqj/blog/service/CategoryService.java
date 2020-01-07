@@ -5,6 +5,8 @@ import com.zqj.blog.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -24,4 +26,7 @@ public class CategoryService {
         return categoryMapper.selectByPrimaryKey(id);
     }
 
+    public List<Category> getCategories() {
+        return categoryMapper.selectAll();
+    }
 }
