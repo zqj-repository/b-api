@@ -1,6 +1,7 @@
 package com.zqj.blog.controller;
 
 import com.zqj.blog.entity.Article;
+import com.zqj.blog.entity.view.ArticleListItem;
 import com.zqj.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class ArticleController {
     }
 
     @GetMapping("/all")
-    public List<Article> allArticles() {
+    public List<ArticleListItem> allArticles() {
         return articleService.getArticles();
     }
 
