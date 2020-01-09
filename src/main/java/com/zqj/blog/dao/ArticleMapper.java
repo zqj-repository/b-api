@@ -22,4 +22,8 @@ public interface ArticleMapper {
     int updateByPrimaryKey(Article record);
 
     List<Article> selectAll();
+
+    List<Article> selectByCategoryId(Integer id);
+
+
 }

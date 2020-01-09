@@ -5,10 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="parent" property="parent" jdbcType="INTEGER" />
+    <result column="default_category" property="defaultCategory" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, description, parent
+    id, name, description, default_category
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zqj.blog.entity.Category" >
-    insert into category (id, name, description, 
-      parent)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{parent,jdbcType=INTEGER})
+    insert into category (id, name, description,
+      default_category)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{defaultCategory,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zqj.blog.entity.Category" >
     insert into category
@@ -38,8 +38,8 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="parent != null" >
-        parent,
+      <if test="defaultCategory != null" >
+        default_category,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -52,8 +52,8 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="parent != null" >
-        #{parent,jdbcType=INTEGER},
+      <if test="defaultCategory != null" >
+        #{default_category,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -66,8 +66,8 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="parent != null" >
-        parent = #{parent,jdbcType=INTEGER},
+      <if test="defaultCategory != null" >
+        default_category = #{defaultCategory,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -76,10 +76,13 @@
     update category
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      parent = #{parent,jdbcType=INTEGER}
+      default_category = #{defaultCategory,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultType="com.zqj.blog.entity.Category">
     select * from category
+  </select>
+  <select id="selectDefaultCategory" resultType="com.zqj.blog.entity.Category">
+    select * from category where default_category = 'Y'
   </select>
 </mapper>

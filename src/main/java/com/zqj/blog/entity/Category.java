@@ -10,5 +10,5 @@ public class Category {
 
     private String description;
 
-    private Integer parent;
+    private String defaultCategory;
 }
