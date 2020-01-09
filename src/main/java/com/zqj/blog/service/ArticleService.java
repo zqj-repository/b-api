@@ -26,7 +26,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public void publishArticle(Article article) {
+    public void createArticle(Article article) {
         article.setId(null);
         article.setCreatedWhen(new Date());
         article.setModifiedWhen(null);
@@ -55,6 +55,16 @@ public class ArticleService {
             }
         }
         return articleListItems;
+    }
+
+    @Transactional
+    public void updateArticle(Article article) {
+        articleMapper.updateByPrimaryKey(article);
+    }
+
+    @Transactional
+    public void deleteArticle(Integer id) {
+        articleMapper.deleteByPrimaryKey(id);
     }
 
 }

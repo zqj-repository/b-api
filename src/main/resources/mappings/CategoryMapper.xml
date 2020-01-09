@@ -79,10 +79,10 @@
       default_category = #{defaultCategory,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectAll" resultType="com.zqj.blog.entity.Category">
+  <select id="selectAll" resultMap="BaseResultMap">
     select * from category
   </select>
-  <select id="selectDefaultCategory" resultType="com.zqj.blog.entity.Category">
+  <select id="selectDefaultCategory" resultMap="BaseResultMap">
     select * from category where default_category = 'Y'
   </select>
 </mapper>
