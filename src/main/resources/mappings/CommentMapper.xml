@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqj.blog.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.zqj.blog.entity.Comment" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER" property="user" jdbcType="INTEGER" />
+    <result column="ARTICLE" property="article" jdbcType="INTEGER" />
+    <result column="PARENT_COMMENT" property="parentComment" jdbcType="INTEGER" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="CREATED_WHEN" property="createdWhen" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER, ARTICLE, PARENT_COMMENT, CONTENT, CREATED_WHEN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zqj.blog.entity.Comment" >
+    insert into comment (ID, USER, ARTICLE, 
+      PARENT_COMMENT, CONTENT, CREATED_WHEN
+      )
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{article,jdbcType=INTEGER}, 
+      #{parentComment,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{createdWhen,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqj.blog.entity.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="article != null" >
+        ARTICLE,
+      </if>
+      <if test="parentComment != null" >
+        PARENT_COMMENT,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="createdWhen != null" >
+        CREATED_WHEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="article != null" >
+        #{article,jdbcType=INTEGER},
+      </if>
+      <if test="parentComment != null" >
+        #{parentComment,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdWhen != null" >
+        #{createdWhen,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqj.blog.entity.Comment" >
+    update comment
+    <set >
+      <if test="user != null" >
+        USER = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="article != null" >
+        ARTICLE = #{article,jdbcType=INTEGER},
+      </if>
+      <if test="parentComment != null" >
+        PARENT_COMMENT = #{parentComment,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdWhen != null" >
+        CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqj.blog.entity.Comment" >
+    update comment
+    set USER = #{user,jdbcType=INTEGER},
+      ARTICLE = #{article,jdbcType=INTEGER},
+      PARENT_COMMENT = #{parentComment,jdbcType=INTEGER},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

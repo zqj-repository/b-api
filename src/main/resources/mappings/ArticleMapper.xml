@@ -2,20 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zqj.blog.dao.ArticleMapper" >
   <resultMap id="BaseResultMap" type="com.zqj.blog.entity.Article" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
-    <result column="created_when" property="createdWhen" jdbcType="TIMESTAMP" />
-    <result column="modified_when" property="modifiedWhen" jdbcType="TIMESTAMP" />
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="USER" property="user" jdbcType="INTEGER" />
+    <result column="CATEGORY" property="category" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATED_WHEN" property="createdWhen" jdbcType="TIMESTAMP" />
+    <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_MODIFY" property="lastModify" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.zqj.blog.entity.Article" extends="BaseResultMap" >
-    <result column="text" property="text" jdbcType="LONGVARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, category_id, created_when, modified_when
+    ID, TITLE, USER, CATEGORY, STATUS, CREATED_WHEN, PUBLISH_TIME, LAST_MODIFY
   </sql>
   <sql id="Blob_Column_List" >
-    text
+    CONTENT
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -23,40 +26,51 @@
     ,
     <include refid="Blob_Column_List" />
     from article
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from article
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zqj.blog.entity.Article" >
-    insert into article (id, title, category_id, 
-      created_when, modified_when, text
+    insert into article (ID, TITLE, USER, 
+      CATEGORY, STATUS, CREATED_WHEN, 
+      PUBLISH_TIME, LAST_MODIFY, CONTENT
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
-      #{createdWhen,jdbcType=TIMESTAMP}, #{modifiedWhen,jdbcType=TIMESTAMP}, #{text,jdbcType=LONGVARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{user,jdbcType=INTEGER}, 
+      #{category,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{createdWhen,jdbcType=TIMESTAMP}, 
+      #{publishTime,jdbcType=TIMESTAMP}, #{lastModify,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zqj.blog.entity.Article" >
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        id,
+        ID,
       </if>
       <if test="title != null" >
-        title,
+        TITLE,
       </if>
-      <if test="categoryId != null" >
-        category_id,
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="status != null" >
+        STATUS,
       </if>
       <if test="createdWhen != null" >
-        created_when,
+        CREATED_WHEN,
       </if>
-      <if test="modifiedWhen != null" >
-        modified_when,
+      <if test="publishTime != null" >
+        PUBLISH_TIME,
       </if>
-      <if test="text != null" >
-        text,
+      <if test="lastModify != null" >
+        LAST_MODIFY,
+      </if>
+      <if test="content != null" >
+        CONTENT,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -66,17 +80,26 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="categoryId != null" >
-        #{categoryId,jdbcType=INTEGER},
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="createdWhen != null" >
         #{createdWhen,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifiedWhen != null" >
-        #{modifiedWhen,jdbcType=TIMESTAMP},
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="text != null" >
-        #{text,jdbcType=LONGVARCHAR},
+      <if test="lastModify != null" >
+        #{lastModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -84,44 +107,53 @@
     update article
     <set >
       <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+        TITLE = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="categoryId != null" >
-        category_id = #{categoryId,jdbcType=INTEGER},
+      <if test="user != null" >
+        USER = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        CATEGORY = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
       </if>
       <if test="createdWhen != null" >
-        created_when = #{createdWhen,jdbcType=TIMESTAMP},
+        CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifiedWhen != null" >
-        modified_when = #{modifiedWhen,jdbcType=TIMESTAMP},
+      <if test="publishTime != null" >
+        PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="text != null" >
-        text = #{text,jdbcType=LONGVARCHAR},
+      <if test="lastModify != null" >
+        LAST_MODIFY = #{lastModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zqj.blog.entity.Article" >
     update article
-    set title = #{title,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      created_when = #{createdWhen,jdbcType=TIMESTAMP},
-      modified_when = #{modifiedWhen,jdbcType=TIMESTAMP},
-      text = #{text,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set TITLE = #{title,jdbcType=VARCHAR},
+      USER = #{user,jdbcType=INTEGER},
+      CATEGORY = #{category,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY = #{lastModify,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zqj.blog.entity.Article" >
     update article
-    set title = #{title,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      created_when = #{createdWhen,jdbcType=TIMESTAMP},
-      modified_when = #{modifiedWhen,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    set TITLE = #{title,jdbcType=VARCHAR},
+      USER = #{user,jdbcType=INTEGER},
+      CATEGORY = #{category,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
+      PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY = #{lastModify,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select * from article
-  </select>
-  <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select * from article where category_id = #{id,jdbcType=INTEGER}
-  </select>
 </mapper>

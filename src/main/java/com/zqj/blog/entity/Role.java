@@ -1,6 +1,6 @@
 package com.zqj.blog.entity;
 
-public class Category {
+public class Role {
     private Integer id;
 
     private String name;

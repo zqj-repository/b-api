@@ -1,5 +1,6 @@
 package com.zqj.blog.util;
 
+
 public class Validations {
 
     public static void check(Boolean ...booleans) {

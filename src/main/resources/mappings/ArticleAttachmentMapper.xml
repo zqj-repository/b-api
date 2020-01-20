@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqj.blog.dao.ArticleAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.zqj.blog.entity.ArticleAttachment" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="ARTICLE" property="article" jdbcType="INTEGER" />
+    <result column="CREATED_WHEN" property="createdWhen" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOCATION, ARTICLE, CREATED_WHEN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from article_attachment
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article_attachment
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zqj.blog.entity.ArticleAttachment" >
+    insert into article_attachment (ID, LOCATION, ARTICLE, 
+      CREATED_WHEN)
+    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{article,jdbcType=INTEGER}, 
+      #{createdWhen,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqj.blog.entity.ArticleAttachment" >
+    insert into article_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="location != null" >
+        LOCATION,
+      </if>
+      <if test="article != null" >
+        ARTICLE,
+      </if>
+      <if test="createdWhen != null" >
+        CREATED_WHEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="article != null" >
+        #{article,jdbcType=INTEGER},
+      </if>
+      <if test="createdWhen != null" >
+        #{createdWhen,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqj.blog.entity.ArticleAttachment" >
+    update article_attachment
+    <set >
+      <if test="location != null" >
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="article != null" >
+        ARTICLE = #{article,jdbcType=INTEGER},
+      </if>
+      <if test="createdWhen != null" >
+        CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqj.blog.entity.ArticleAttachment" >
+    update article_attachment
+    set LOCATION = #{location,jdbcType=VARCHAR},
+      ARTICLE = #{article,jdbcType=INTEGER},
+      CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
