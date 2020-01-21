@@ -3,15 +3,13 @@ package com.zqj.blog.util;
 
 public class Validations {
 
-    public static void check(Boolean ...booleans) {
-        check("Request validation failed.", booleans);
+    public static void expect(Boolean e) {
+        expect(e, "Request validation failed.");
     }
 
-    public static void check(String message, Boolean ...booleans) {
-        for (Boolean b: booleans) {
-            if (!b) {
-                throw new RuntimeException(message);
-            }
+    public static void expect(Boolean e, String message) {
+        if (!e) {
+            throw new RuntimeException(message);
         }
     }
 

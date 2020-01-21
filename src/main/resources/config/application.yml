@@ -8,3 +8,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mappings/*Mapper.xml
+
+blog:
+  host: http://localhost:8080
+  activationUrl: /user/activate/%s/%s
