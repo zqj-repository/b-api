@@ -11,5 +11,6 @@ public class BlogProperties {
 
     private String host;
     private String activationUrl;
-
+    private String jwtPrivateKey;
+    private String jwtPublicKey;
 }

@@ -1,5 +1,6 @@
 package com.zqj.blog.controller;
 
+import com.zqj.blog.entity.bo.LoginUser;
 import com.zqj.blog.entity.bo.NewUser;
 import com.zqj.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class UserController {
     public ResponseEntity<?> activate(@PathVariable("id") Integer userId, @PathVariable("signal") String signal) {
         userService.activateUser(userId, signal);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Validated LoginUser loginUser) {
+        return ResponseEntity.ok(userService.login(loginUser));
     }
 
 }
