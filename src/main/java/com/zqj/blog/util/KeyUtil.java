@@ -1,5 +1,6 @@
 package com.zqj.blog.util;
 
+import com.zqj.blog.entity.Role;
 import org.jose4j.base64url.Base64;
 
 import java.security.*;
@@ -8,6 +9,9 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class KeyUtil {
 
@@ -56,6 +60,15 @@ public class KeyUtil {
     }
 
     public static void main(String[] args) {
-        generateKeyPair();
+//        generateKeyPair();
+        Role role1 = new Role();
+        role1.setName("11");
+        Role role2 = new Role();
+        role2.setName("22");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role1);
+        roleList.add(role2);
+        String[] d = roleList.stream().map(Role::getName).collect(Collectors.toList()).toArray(new String[]{});
+        System.out.println(d.length);
     }
 }

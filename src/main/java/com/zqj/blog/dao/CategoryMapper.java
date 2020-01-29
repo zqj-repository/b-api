@@ -2,6 +2,8 @@ package com.zqj.blog.dao;
 
 import com.zqj.blog.entity.Category;
 
+import java.util.List;
+
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface CategoryMapper {
     int updateByPrimaryKeyWithBLOBs(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    List<Category> selectAllCategory();
 }

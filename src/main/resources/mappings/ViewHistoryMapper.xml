@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqj.blog.dao.ViewHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zqj.blog.entity.ViewHistory" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER" property="user" jdbcType="INTEGER" />
+    <result column="ARTICLE" property="article" jdbcType="INTEGER" />
+    <result column="VIEW_WHEN" property="viewWhen" jdbcType="TIMESTAMP" />
+    <result column="COUNT_RECORD" property="countRecord" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER, ARTICLE, VIEW_WHEN, COUNT_RECORD
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from view_history
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from view_history
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zqj.blog.entity.ViewHistory" >
+    insert into view_history (ID, USER, ARTICLE, 
+      VIEW_WHEN, COUNT_RECORD)
+    values (#{id,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{article,jdbcType=INTEGER}, 
+      #{viewWhen,jdbcType=TIMESTAMP}, #{countRecord,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqj.blog.entity.ViewHistory" >
+    insert into view_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="article != null" >
+        ARTICLE,
+      </if>
+      <if test="viewWhen != null" >
+        VIEW_WHEN,
+      </if>
+      <if test="countRecord != null" >
+        COUNT_RECORD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="article != null" >
+        #{article,jdbcType=INTEGER},
+      </if>
+      <if test="viewWhen != null" >
+        #{viewWhen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countRecord != null" >
+        #{countRecord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqj.blog.entity.ViewHistory" >
+    update view_history
+    <set >
+      <if test="user != null" >
+        USER = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="article != null" >
+        ARTICLE = #{article,jdbcType=INTEGER},
+      </if>
+      <if test="viewWhen != null" >
+        VIEW_WHEN = #{viewWhen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countRecord != null" >
+        COUNT_RECORD = #{countRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqj.blog.entity.ViewHistory" >
+    update view_history
+    set USER = #{user,jdbcType=INTEGER},
+      ARTICLE = #{article,jdbcType=INTEGER},
+      VIEW_WHEN = #{viewWhen,jdbcType=TIMESTAMP},
+      COUNT_RECORD = #{countRecord,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

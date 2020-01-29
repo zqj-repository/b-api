@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqj.blog.dao.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.zqj.blog.entity.UserRoleKey" >
+    <id column="USER" property="user" jdbcType="INTEGER" />
+    <id column="ROLE" property="role" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zqj.blog.entity.UserRoleKey" >
+    delete from user_role
+    where USER = #{user,jdbcType=INTEGER}
+      and ROLE = #{role,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zqj.blog.entity.UserRoleKey" >
+    insert into user_role (USER, ROLE)
+    values (#{user,jdbcType=INTEGER}, #{role,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqj.blog.entity.UserRoleKey" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="user != null" >
+        USER,
+      </if>
+      <if test="role != null" >
+        ROLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into USER_ROLE
+    (
+      user,
+      role
+    )
+    values
+    <foreach collection="userRoleKeyList" item="item" index= "index" separator =",">
+      (
+      #{item.user},
+      #{item.role}
+      )
+    </foreach>
+  </insert>
+</mapper>

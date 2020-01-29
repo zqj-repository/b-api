@@ -9,8 +9,6 @@ public class User {
 
     private String encryptedPassword;
 
-    private Integer role;
-
     private String phone;
 
     private String gender;
@@ -49,14 +47,6 @@ public class User {
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword == null ? null : encryptedPassword.trim();
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
     }
 
     public String getPhone() {

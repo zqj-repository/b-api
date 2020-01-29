@@ -80,4 +80,7 @@
     set NAME = #{name,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllCategory" resultMap="ResultMapWithBLOBs">
+    select * from category
+  </select>
 </mapper>

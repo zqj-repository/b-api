@@ -156,4 +156,7 @@
       LAST_MODIFY = #{lastModify,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByCategoryId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select * from article where category = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

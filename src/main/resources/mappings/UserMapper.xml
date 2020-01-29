@@ -5,7 +5,6 @@
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="ENCRYPTED_PASSWORD" property="encryptedPassword" jdbcType="VARCHAR" />
-    <result column="ROLE" property="role" jdbcType="INTEGER" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="GENDER" property="gender" jdbcType="VARCHAR" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
@@ -16,8 +15,8 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, USER_NAME, ENCRYPTED_PASSWORD, ROLE, PHONE, GENDER, EMAIL, ADDRESS, PORTRAIT, 
-    REGISTERED_WHEN, LAST_LOGIN, STATUS
+    ID, USER_NAME, ENCRYPTED_PASSWORD, PHONE, GENDER, EMAIL, ADDRESS, PORTRAIT, REGISTERED_WHEN, 
+    LAST_LOGIN, STATUS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -29,7 +28,7 @@
     select
     <include refid="Base_Column_List" />
     from user
-    where user_name = #{userName,jdbcType=VARCHAR}
+    where USER_NAME = #{userName,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
@@ -37,15 +36,13 @@
   </delete>
   <insert id="insert" parameterType="com.zqj.blog.entity.User" >
     insert into user (ID, USER_NAME, ENCRYPTED_PASSWORD, 
-      ROLE, PHONE, GENDER, 
-      EMAIL, ADDRESS, PORTRAIT, 
-      REGISTERED_WHEN, LAST_LOGIN, STATUS
-      )
+      PHONE, GENDER, EMAIL, 
+      ADDRESS, PORTRAIT, REGISTERED_WHEN, 
+      LAST_LOGIN, STATUS)
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{encryptedPassword,jdbcType=VARCHAR}, 
-      #{role,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{portrait,jdbcType=VARCHAR}, 
-      #{registeredWhen,jdbcType=TIMESTAMP}, #{lastLogin,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
-      )
+      #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{portrait,jdbcType=VARCHAR}, #{registeredWhen,jdbcType=TIMESTAMP}, 
+      #{lastLogin,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zqj.blog.entity.User" >
     insert into user
@@ -58,9 +55,6 @@
       </if>
       <if test="encryptedPassword != null" >
         ENCRYPTED_PASSWORD,
-      </if>
-      <if test="role != null" >
-        ROLE,
       </if>
       <if test="phone != null" >
         PHONE,
@@ -97,9 +91,6 @@
       <if test="encryptedPassword != null" >
         #{encryptedPassword,jdbcType=VARCHAR},
       </if>
-      <if test="role != null" >
-        #{role,jdbcType=INTEGER},
-      </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
@@ -135,9 +126,6 @@
       <if test="encryptedPassword != null" >
         ENCRYPTED_PASSWORD = #{encryptedPassword,jdbcType=VARCHAR},
       </if>
-      <if test="role != null" >
-        ROLE = #{role,jdbcType=INTEGER},
-      </if>
       <if test="phone != null" >
         PHONE = #{phone,jdbcType=VARCHAR},
       </if>
@@ -169,7 +157,6 @@
     update user
     set USER_NAME = #{userName,jdbcType=VARCHAR},
       ENCRYPTED_PASSWORD = #{encryptedPassword,jdbcType=VARCHAR},
-      ROLE = #{role,jdbcType=INTEGER},
       PHONE = #{phone,jdbcType=VARCHAR},
       GENDER = #{gender,jdbcType=VARCHAR},
       EMAIL = #{email,jdbcType=VARCHAR},

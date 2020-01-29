@@ -1,13 +1,14 @@
 package com.zqj.blog.entity.bo;
 
-public enum UserStatus {
-    ACTIVE("A"),
-    INACTIVE("I"),
-    LOCK("L");
+public enum ArticleStatus {
+
+    PUBLISHED("P"),
+    DRAFT("D"),
+    REMOVED("R");
 
     private String code;
 
-    UserStatus(String code) {
+    ArticleStatus(String code) {
         this.code = code;
     }
 

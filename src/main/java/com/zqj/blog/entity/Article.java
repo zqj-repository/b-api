@@ -1,7 +1,11 @@
 package com.zqj.blog.entity;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.Date;
 
+@Builder
 public class Article {
     private Integer id;
 
