@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-    public static final Integer EXPIRATION = 10;
+    public static final Integer EXPIRATION = 1440;
     public static final String ISSUER = "Blog API";
     public static final String AUDIENCE = "Blog Client";
 

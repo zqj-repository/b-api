@@ -81,6 +81,10 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllCategory" resultMap="ResultMapWithBLOBs">
-    select * from category
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from category
   </select>
 </mapper>

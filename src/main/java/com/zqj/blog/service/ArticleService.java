@@ -40,13 +40,13 @@ public class ArticleService {
     public void createArticle(ArticleFormBO articleFormBO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
+
         User poUser = userMapper.selectByUserName(user.getUsername());
-        Category category = categoryMapper.selectByPrimaryKey(articleFormBO.getCategory());
         Article article = articleFormBO.toPO();
-        article.setUser(poUser);
+        article.setUser(poUser.getId());
         article.setId(null);
         article.setCreatedWhen(new Date());
-        article.setCategory(category);
+
         if (ArticleStatus.PUBLISHED.getCode().equals(article.getStatus())) {
             article.setPublishTime(new Date());
         }
@@ -56,8 +56,6 @@ public class ArticleService {
     @Transactional
     public void updateArticle(ArticleFormBO articleFormBO) {
         Article article = articleFormBO.toPO();
-        Category category = categoryMapper.selectByPrimaryKey(articleFormBO.getCategory());
-        article.setCategory(category);
         article.setLastModify(new Date());
 
         if (ArticleStatus.PUBLISHED.getCode().equals(article.getStatus())) {
@@ -85,10 +83,13 @@ public class ArticleService {
         for (Article article: articles) {
             Integer viewCount = viewHistoryMapper.selectCountOfArticleViews(article.getId());
             Integer commentCount = commentMapper.selectCountOfArticleComment(article.getId());
+            Category category = categoryMapper.selectByPrimaryKey(article.getCategory());
+            ArticleStatus status = ArticleStatus.fromCode(article.getStatus());
             AdminArticleListItem adminArticleListItem = AdminArticleListItem.builder()
                     .id(article.getId())
                     .title(article.getTitle())
-                    .categoryName(article.getCategory().getName())
+                    .categoryName(category.getName())
+                    .status(status.getName())
                     .viewCount(viewCount)
                     .commentCount(commentCount)
                     .lastModify(article.getLastModify())

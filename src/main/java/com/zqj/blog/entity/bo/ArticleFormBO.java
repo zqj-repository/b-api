@@ -27,7 +27,9 @@ public class ArticleFormBO {
         Article article = Article.builder()
                 .id(id)
                 .title(title)
-                .content(content).build();
+                .content(content)
+                .category(category)
+                .build();
         article.setStatus(ArticleStatus.DRAFT.getCode().equals(action) ? ArticleStatus.DRAFT.getCode() : ArticleStatus.PUBLISHED.getCode());
         return article;
     }

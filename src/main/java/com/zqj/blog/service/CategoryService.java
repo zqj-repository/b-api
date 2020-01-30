@@ -33,11 +33,13 @@ public class CategoryService {
 
     @Transactional
     public void deleteCategory(Integer id) {
+        if (CategoryConstants.DEFAULT_ID == id) {
+            throw new RuntimeException("默认分类不能删除");
+        }
         List<Article> articles = articleMapper.selectByCategoryId(id);
-        Category defaultCategory = categoryMapper.selectByPrimaryKey(CategoryConstants.DEFAULT_ID);
         if (articles != null && articles.size() > 0) {
             for (Article article: articles) {
-                article.setCategory(defaultCategory);
+                article.setCategory(CategoryConstants.DEFAULT_ID);
                 articleMapper.updateByPrimaryKeySelective(article);
             }
         }

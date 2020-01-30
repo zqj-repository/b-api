@@ -1,6 +1,5 @@
 package com.zqj.blog.controller.admin;
 
-import com.zqj.blog.entity.Article;
 import com.zqj.blog.entity.bo.ArticleFormBO;
 import com.zqj.blog.service.ArticleService;
 import com.zqj.blog.util.Validations;

@@ -1,5 +1,6 @@
 package com.zqj.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
 import java.util.Date;
@@ -10,16 +11,19 @@ public class Article {
 
     private String title;
 
-    private User user;
+    private Integer user;
 
-    private Category category;
+    private Integer category;
 
     private String status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdWhen;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastModify;
 
     private String content;
@@ -40,19 +44,19 @@ public class Article {
         this.title = title == null ? null : title.trim();
     }
 
-    public User getUser() {
+    public Integer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 
-    public Category getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
