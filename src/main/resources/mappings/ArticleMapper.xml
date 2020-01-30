@@ -4,16 +4,23 @@
   <resultMap id="BaseResultMap" type="com.zqj.blog.entity.Article" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="TITLE" property="title" jdbcType="VARCHAR" />
-    <result column="USER" property="user" jdbcType="INTEGER" />
-    <result column="CATEGORY" property="category" jdbcType="INTEGER" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="CREATED_WHEN" property="createdWhen" jdbcType="TIMESTAMP" />
     <result column="PUBLISH_TIME" property="publishTime" jdbcType="TIMESTAMP" />
     <result column="LAST_MODIFY" property="lastModify" jdbcType="TIMESTAMP" />
+    <association column="USER" property="user"
+                 javaType="com.zqj.blog.entity.User"
+                 select="com.zqj.blog.dao.UserMapper.selectByPrimaryKey"
+    />
+    <association column="CATEGORY" property="category"
+                 javaType="com.zqj.blog.entity.Category"
+                 select="com.zqj.blog.dao.CategoryMapper.selectByPrimaryKey"
+    />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.zqj.blog.entity.Article" extends="BaseResultMap" >
     <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     ID, TITLE, USER, CATEGORY, STATUS, CREATED_WHEN, PUBLISH_TIME, LAST_MODIFY
   </sql>
@@ -37,8 +44,8 @@
       CATEGORY, STATUS, CREATED_WHEN, 
       PUBLISH_TIME, LAST_MODIFY, CONTENT
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{user,jdbcType=INTEGER}, 
-      #{category,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{createdWhen,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{user.id,jdbcType=INTEGER},
+      #{category.id,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{createdWhen,jdbcType=TIMESTAMP},
       #{publishTime,jdbcType=TIMESTAMP}, #{lastModify,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -80,11 +87,11 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="user != null" >
-        #{user,jdbcType=INTEGER},
+      <if test="user.id != null" >
+        #{user.id,jdbcType=INTEGER},
       </if>
-      <if test="category != null" >
-        #{category,jdbcType=INTEGER},
+      <if test="category.id != null" >
+        #{category.id,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -109,11 +116,11 @@
       <if test="title != null" >
         TITLE = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="user != null" >
-        USER = #{user,jdbcType=INTEGER},
+      <if test="user.id != null" >
+        USER = #{user.id,jdbcType=INTEGER},
       </if>
-      <if test="category != null" >
-        CATEGORY = #{category,jdbcType=INTEGER},
+      <if test="category.id != null" >
+        CATEGORY = #{category.id,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         STATUS = #{status,jdbcType=VARCHAR},
@@ -136,8 +143,8 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zqj.blog.entity.Article" >
     update article
     set TITLE = #{title,jdbcType=VARCHAR},
-      USER = #{user,jdbcType=INTEGER},
-      CATEGORY = #{category,jdbcType=INTEGER},
+      USER = #{user.id,jdbcType=INTEGER},
+      CATEGORY = #{category.id,jdbcType=INTEGER},
       STATUS = #{status,jdbcType=VARCHAR},
       CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
       PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
@@ -148,8 +155,8 @@
   <update id="updateByPrimaryKey" parameterType="com.zqj.blog.entity.Article" >
     update article
     set TITLE = #{title,jdbcType=VARCHAR},
-      USER = #{user,jdbcType=INTEGER},
-      CATEGORY = #{category,jdbcType=INTEGER},
+      USER = #{user.id,jdbcType=INTEGER},
+      CATEGORY = #{category.id,jdbcType=INTEGER},
       STATUS = #{status,jdbcType=VARCHAR},
       CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP},
       PUBLISH_TIME = #{publishTime,jdbcType=TIMESTAMP},
@@ -158,5 +165,8 @@
   </update>
   <select id="selectByCategoryId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select * from article where category = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllArticles" resultMap="BaseResultMap">
+    select * from article
   </select>
 </mapper>

@@ -14,4 +14,6 @@ public interface ViewHistoryMapper {
     int updateByPrimaryKeySelective(ViewHistory record);
 
     int updateByPrimaryKey(ViewHistory record);
+
+    int selectCountOfArticleViews(Integer article);
 }

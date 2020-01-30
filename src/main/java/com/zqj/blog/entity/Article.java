@@ -1,7 +1,6 @@
 package com.zqj.blog.entity;
 
 import lombok.Builder;
-import lombok.Data;
 
 import java.util.Date;
 
@@ -11,9 +10,9 @@ public class Article {
 
     private String title;
 
-    private Integer user;
+    private User user;
 
-    private Integer category;
+    private Category category;
 
     private String status;
 
@@ -41,19 +40,19 @@ public class Article {
         this.title = title == null ? null : title.trim();
     }
 
-    public Integer getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Integer user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Integer getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

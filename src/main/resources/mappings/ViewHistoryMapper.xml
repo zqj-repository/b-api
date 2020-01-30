@@ -90,4 +90,7 @@
       COUNT_RECORD = #{countRecord,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectCountOfArticleViews" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*) from VIEW_HISTORY where COUNT_RECORD = 'Y' and ARTICLE = #{article,jdbcType=INTEGER}
+  </select>
 </mapper>

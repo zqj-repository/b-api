@@ -18,17 +18,15 @@ public class AdminArticleController {
 
     @PostMapping
     public ResponseEntity<?> postArticle(@RequestBody @Validated ArticleFormBO postArticle) {
-        Article article = postArticle.toPO();
-        articleService.createArticle(article);
+        articleService.createArticle(postArticle);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping
     public ResponseEntity<?> updateArticle(@RequestBody @Validated ArticleFormBO postArticle) {
-        Article article = postArticle.toPO();
-        Validations.expect(article != null && article.getId() != null);
+        Validations.expect(postArticle != null && postArticle.getId() != null);
 
-        articleService.updateArticle(article);
+        articleService.updateArticle(postArticle);
         return ResponseEntity.ok().build();
     }
 

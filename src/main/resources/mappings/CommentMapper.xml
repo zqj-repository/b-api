@@ -103,4 +103,7 @@
       CREATED_WHEN = #{createdWhen,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectCountOfArticleComment" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select COUNT(*) from COMMENT where ARTICLE = #{article,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -20,4 +20,6 @@ public interface ArticleMapper {
     int updateByPrimaryKey(Article record);
 
     List<Article> selectByCategoryId(Integer id);
+
+    List<Article> selectAllArticles();
 }

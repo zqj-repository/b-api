@@ -34,9 +34,10 @@ public class CategoryService {
     @Transactional
     public void deleteCategory(Integer id) {
         List<Article> articles = articleMapper.selectByCategoryId(id);
+        Category defaultCategory = categoryMapper.selectByPrimaryKey(CategoryConstants.DEFAULT_ID);
         if (articles != null && articles.size() > 0) {
             for (Article article: articles) {
-                article.setCategory(CategoryConstants.DEFAULT_ID);
+                article.setCategory(defaultCategory);
                 articleMapper.updateByPrimaryKeySelective(article);
             }
         }

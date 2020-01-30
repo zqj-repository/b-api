@@ -1,7 +1,12 @@
 package com.zqj.blog.entity.vo;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
+@Builder
 public class AdminArticleListItem {
 
     private Integer id;
